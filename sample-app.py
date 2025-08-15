@@ -53,4 +53,4 @@ with st.container():
 
 with st.container():
     st.subheader('Min distance to trauma center from tract centroid')
-    st.barchart(hist_values)
+    st.bar_chart(hist_values)
