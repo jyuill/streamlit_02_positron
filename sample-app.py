@@ -11,7 +11,7 @@ st.title("US Trauma Hospital Locations")
 st.caption("A sample Streamlit app to visualize US trauma hospital locations.")
 
 with st.sidebar:
-    st.write('Filte state')
+    st.write('Filter by State')
     state = st.selectbox('State', options = ('CA', 'TX', 'FL', 'NY', 'IL'))
 
 @st.cache_data
