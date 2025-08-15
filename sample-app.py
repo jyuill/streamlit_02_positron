@@ -12,7 +12,7 @@ st.caption("A sample Streamlit app to visualize US trauma hospital locations.")
 
 with st.sidebar:
     st.write('Filte state')
-    state = st.selectbox('State', options = ['All', 'CA', 'TX', 'FL', 'NY', 'IL'])
+    state = st.selectbox('State', options = ('CA', 'TX', 'FL', 'NY', 'IL'))
 
 @st.cache_data
 def get_data(st_filter):
@@ -26,7 +26,7 @@ state_tracts = get_data(state)
 
 @st.cache_data
 def load_data(state):
-    trauma = gp.read_file('trauma.geojson')
+    trauma = gpd.read_file('trauma.geojson')
     trauma = trauma[trauma['STATE'] == state]
     return(trauma)
 
@@ -44,10 +44,10 @@ with st.container():
         st.write(trauma[['NAME', 'ADDRESS', 'CITY', 'STATE', 'ZIP']])
         state_tracts = state_tracts.to_crs(6571)
         trauma = trauma.to_crs(6571)
-        state_buffer = gp.GeoDataFrame(geometry=state_tracts.dissolve().buffer(100000))
-        state_trauma = gp.sjoin(trauma, state_buffer, how='inner')
+        state_buffer = gpd.GeoDataFrame(geometry=state_tracts.dissolve().buffer(100000))
+        state_trauma = gpd.sjoin(trauma, state_buffer, how='inner')
         tract_centroids = state_tracts.centroid
-        dist = tract_centroids.geometry.apply(lambda g= state_trauma.distance(g, align = False))
+        dist = tract_centroids.geometry.apply(lambda g: state_trauma.distance(g, align = False))
         min_dist = dist.min(axis = 'columns') / 1000
         hist_values = np.histogram(min_dist, bins=24, range = (0,24))[0]
 
