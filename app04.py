@@ -16,6 +16,7 @@ import geopandas as gpd
 st.set_page_config(layout="wide")
 
 # Custom CSS to make metric labels larger and more prominent
+# NOTE: when published on Posit Connect Cloud, text is bigger than on local preview
 st.markdown("""
 <style>
 .metric-container {
@@ -43,16 +44,16 @@ st.markdown("""
     margin-bottom: 0.3rem;
 }
 .stat-value {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: bold;
     color: #4dabf7;
 }
 .insights-content {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     line-height: 1.7;
 }
 .insights-bullet {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     margin-bottom: 0.8rem;
     line-height: 1.6;
 }
@@ -61,7 +62,7 @@ st.markdown("""
     font-weight: 700;
 }
 .custom-caption {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-style: italic;
     color: #777;
 }
@@ -195,7 +196,7 @@ with col_m1:
 with col_m2:
     st.markdown(f"""
     <div class="metric-container">
-        <div class="metric-label">Hospitals with Helipads</div>
+        <div class="metric-label">Hospitals w/ Helipads</div>
         <div class="metric-value">{metrics['helipads']}</div>
     </div>
     """, unsafe_allow_html=True)
@@ -203,7 +204,7 @@ with col_m2:
 with col_m3:
     st.markdown(f"""
     <div class="metric-container">
-        <div class="metric-label">Level 1 Trauma Centers</div>
+        <div class="metric-label">Lvl 1 Trauma Ctrs</div>
         <div class="metric-value">{metrics['level_1_centers']}</div>
     </div>
     """, unsafe_allow_html=True)
@@ -211,7 +212,7 @@ with col_m3:
 with col_m4:
     st.markdown(f"""
     <div class="metric-container">
-        <div class="metric-label">Level 1 Trauma Center Beds</div>
+        <div class="metric-label">Lvl 1 Trauma Ctr Beds</div>
         <div class="metric-value">{metrics['level_1_beds']}</div>
     </div>
     """, unsafe_allow_html=True)
