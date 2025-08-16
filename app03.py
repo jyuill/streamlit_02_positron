@@ -13,6 +13,42 @@ from pygris import tracts
 import geopandas as gpd
 
 st.set_page_config(layout="wide")
+
+# Custom CSS to make metric labels larger and more prominent
+st.markdown("""
+<style>
+.metric-container {
+    background-color: #f0f2f6;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    margin: 0.5rem 0;
+}
+.metric-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #262730;
+    margin-bottom: 0.5rem;
+}
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ff6b6b;
+}
+.stat-label {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #262730;
+    margin-bottom: 0.3rem;
+}
+.stat-value {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #4dabf7;
+}
+</style>
+""", unsafe_allow_html=True)
+
 st.title("US Trauma Hospital Locations")
 st.caption("A sample Streamlit app to visualize US trauma hospital locations.")
 
@@ -72,22 +108,42 @@ def calculate_metrics(trauma_df):
 metrics = calculate_metrics(trauma)
 
 # Display summary metrics with enhanced styling
-st.markdown(f"## 📊 Summary Metrics for {state}")
+st.markdown(f"# 📊 Summary Metrics for {state}")
 st.markdown("---")  # Add a horizontal line for visual separation
 
 col_m1, col_m2, col_m3, col_m4 = st.columns(4)
 
 with col_m1:
-    st.metric("Total Hospitals", metrics['hospitals'])
+    st.markdown(f"""
+    <div class="metric-container">
+        <div class="metric-label">Total Hospitals</div>
+        <div class="metric-value">{metrics['hospitals']}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 with col_m2:
-    st.metric("Hospitals with Helipads", metrics['helipads'])
+    st.markdown(f"""
+    <div class="metric-container">
+        <div class="metric-label">Hospitals with Helipads</div>
+        <div class="metric-value">{metrics['helipads']}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 with col_m3:
-    st.metric("Level 1 Trauma Centers", metrics['level_1_centers'])
+    st.markdown(f"""
+    <div class="metric-container">
+        <div class="metric-label">Level 1 Trauma Centers</div>
+        <div class="metric-value">{metrics['level_1_centers']}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 with col_m4:
-    st.metric("Level 1 Trauma Center Beds", metrics['level_1_beds'])
+    st.markdown(f"""
+    <div class="metric-container">
+        <div class="metric-label">Level 1 Trauma Center Beds</div>
+        <div class="metric-value">{metrics['level_1_beds']}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.markdown("---")  # Add another horizontal line after metrics
 
@@ -168,11 +224,26 @@ with st.container():
     st.pyplot(fig)
     
     # Display the statistics below the chart with enhanced styling
-    st.markdown(f"### 📈 Distance Statistics for {state}")
+    st.markdown(f"# 📈 Distance Statistics for {state}")
     col_s1, col_s2, col_s3 = st.columns(3)
     with col_s1:
-        st.markdown(f"**Mean Distance:**  \n# {mean_distance:.1f} km")
+        st.markdown(f"""
+        <div class="metric-container">
+            <div class="stat-label">Mean Distance</div>
+            <div class="stat-value">{mean_distance:.1f} km</div>
+        </div>
+        """, unsafe_allow_html=True)
     with col_s2:
-        st.markdown(f"**Median Distance:**  \n# {median_distance:.1f} km")
+        st.markdown(f"""
+        <div class="metric-container">
+            <div class="stat-label">Median Distance</div>
+            <div class="stat-value">{median_distance:.1f} km</div>
+        </div>
+        """, unsafe_allow_html=True)
     with col_s3:
-        st.markdown(f"**Maximum Distance:**  \n# {max_distance:.1f} km")
+        st.markdown(f"""
+        <div class="metric-container">
+            <div class="stat-label">Maximum Distance</div>
+            <div class="stat-value">{max_distance:.1f} km</div>
+        </div>
+        """, unsafe_allow_html=True)
